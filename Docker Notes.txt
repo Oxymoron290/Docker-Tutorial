@@ -1,0 +1,65 @@
+https://hub.docker.com/r/nigelpoulton/ctr-demo
+
+==============================
+Running a container
+==============================
+
+> demonstrate nothing is working on 8080 right now
+
+`docker run --name web -p 8080:8080 nigelpoulton/ctr-demo:1`
+
+`docker run` is the command to run a new container
+`nigelpoulton/ctr-demo` is the container I want to run, hosted on dockerhub (default)
+`--name web` names the container
+`-p 8080:8080` exposes the port for the container
+
+More options available at: https://docs.docker.com/engine/reference/commandline/cli/ 
+
+> verify container in the browser
+`docker stop web`
+> verify again
+`docker start web`
+> verify again
+
+show kitematic
+
+=========================
+-------------------------
+=========================
+Building an image
+=========================
+To follow along you need npm and the ability to run the create-react-app npx package, and you will need docker installed.
+
+create a project with `npx create-react-app tss-lunch`
+
+test the new app with `cd ./tss-lunch` and then `npm start`
+
+The app will run on my computer as if my computer is the server
+my computer satisfies the dependencies needed to host a react app - `npm` cli
+
+> Verify in the browser at localhost:3000
+
+now dockerize
+
+come back to root with `cd ../`
+
+Typical `docker build -t tss-lunch .`
+
+`docker build` executes the build of an image
+`-t tss-lunch` tags the image tss-lunch - think of this like a name
+`.` is the context that is going to be built
+
+The docker build process only has access to the context (directory) you provide it.
+It most contain a `Dockerfile` in the root of the context with that name.
+if it doesn't have a Dockerfile in the root, or if it's named differently you can pass the `-f` flag with the path to the Dockerfile.
+
+> walk through dockerfile
+
+> execute the build
+`docker build -f ./Dockerfile -t maxine ./tss-lunch`
+
+> demonstrate working
+`docker run --name billybob -p 80:80 maxine`
+
+
+have some fun `docker run --rm -it wernight/funbox asciiquarium`
